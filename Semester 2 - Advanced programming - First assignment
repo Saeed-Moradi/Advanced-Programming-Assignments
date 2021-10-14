@@ -1,0 +1,62 @@
+// Problem link: https://quera.ir/course/assignments/4455/problems/14879
+#include <iostream>
+using namespace std;
+class point {
+private:
+	
+public:
+	int array[2];
+	int getX(void) {
+		return array[0];
+	}
+	int getY(void) {
+		return array[1];
+	}
+	void setXY(int x, int y) {
+		array[0] = x;
+		array[1] = y;
+	}
+	point(int x, int y) {
+		array[0] = x;
+		array[1] = y;
+	}
+};
+class rectangle {
+private:
+	
+public:
+	point lu, rd;
+	rectangle() :lu(0, 0), rd(0, 0) {}
+	rectangle(point pt1, point pt2) :lu(pt1), rd(pt2) {}
+	long area() {
+		long int lenght = lu.array[0] - rd.array[0], height = lu.array[1] - rd.array[1], area;
+		area = lenght*height;
+		if (area<0)
+			area *= -1;
+		return area;
+	}
+	long perimeter() {
+		long int lenght = lu.array[0] - rd.array[0], height = lu.array[1] - rd.array[1], perimeter;
+		if (lenght<0)
+			lenght *= -1;
+		if (height<0)
+			height *= -1;
+		perimeter = 2 * (lenght + height);
+		return perimeter;
+	}
+};
+int main()
+{
+	rectangle rectangles[1000];
+	int n;
+	long long int sum_p = 0, sum_a = 0;
+	cin >> n;
+	for (int i = 0; i<n; i++) {
+		cin >> rectangles[i].lu.array[0] >> rectangles[i].lu.array[1] >> rectangles[i].rd.array[0] >> rectangles[i].rd.array[1];
+		sum_a += rectangles[i].area();
+		sum_p += rectangles[i].perimeter();
+	}
+	cout << sum_p << endl;
+	cout << sum_a << endl;
+	
+}

@@ -1,0 +1,100 @@
+//Problem link: https://quera.ir/course/assignments/7244/problems/24676
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+class Map
+{
+    private:
+    vector<string> Name;
+	vector<long> Money;
+public:
+	void sort()
+	{
+		int i, j;
+		for (i = 0; i < Money.size() - 1; i++)
+			for (j = i+1; j < Money.size(); j++)
+				if (Money[i] < Money[j])
+				{
+					swap(Money[j], Money[i]);
+					swap(Name[i], Name[j]);
+				}
+	}
+	string MaxElement()
+	{
+		long int MaxElement = Money[0];
+		int index = 0;
+		for (int i = 0; i < Money.size(); i++)
+		{
+			if (Money[i] > MaxElement)
+			{
+				MaxElement = Money[i];
+				index = i;
+			}
+		}
+		return Name[index];
+	}
+	long& operator [](string s)
+	{
+		for (int i = 0; i < Name.size(); i++)
+		{
+			if (Name[i] == s)
+			{
+				return Money[i];
+			}
+		}
+		Name.push_back(s);
+		Money.push_back(0);
+		return Money[Money.size() - 1];
+	}
+	friend ostream& operator <<(ostream& output,Map& m);
+};
+
+ostream& operator <<(ostream& output,Map& m)
+{
+	m.sort();
+	for (int i = 0; i <m.Name.size() ; i++)
+	{
+		output << m.Name[i] << ": " << m.Money[i] << endl;
+	}
+	return output;
+}
+int main()
+{
+	Map bank;
+	string command,person;
+	long int money;
+	while (true)
+	{
+		cin >> command;
+		if (command == "bank")
+		{
+			cin >> person >> money;
+			bank[person]+= money;
+		}
+		else if (command == "print")
+		{
+			cout << bank;
+		}
+		else if (command == "exit")
+		{
+			cout << bank.MaxElement() << endl;
+			return 0;
+		}
+		else
+		{
+			cin >> person >> money;
+			if (person == "bank")
+			{
+				bank[command] -= money;
+			}
+			else
+			{
+				bank[command] -= money;
+				bank[person] += money;
+			}
+		}
+
+	}
+}

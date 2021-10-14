@@ -1,0 +1,107 @@
+//Problem link: https://quera.ir/course/assignments/7244/problems/24675
+
+#include <iostream>
+#include<string>
+using namespace std;
+
+class Complex
+{
+    private:
+	int img,real;
+public:
+	Complex(int a, int b) :img(b), real(a) {}
+	Complex() {}
+	Complex operator ++()
+	{
+		real++;
+		return Complex(real,img);
+	}
+	Complex operator ++(int)
+	{
+		int old=real++;
+		return Complex(old, img);
+	}
+	Complex operator --()
+	{
+		real--;
+		return Complex(real, img);
+	}
+	Complex operator --(int)
+	{
+		int old = real--;
+		return Complex(old, img);
+	}
+	Complex operator +(Complex& c)
+	{
+		int i = img + c.img;
+		int r = real + c.real;
+		return Complex(r, i);
+	}
+	Complex operator -(Complex& c)
+	{
+		int i = img - c.img;
+		int r = real - c.real;
+		return Complex(r, i);
+	}
+	operator int()
+	{
+		return real;
+	}
+	friend ostream& operator << (ostream& output,const Complex& c);
+	friend istream& operator >> (istream &input, Complex &c);
+};
+ostream& operator << (ostream& output,const Complex& c)
+{
+	output << c.real << " ";
+	if (c.img >= 0)
+		output << "+ " << c.img<<"i";
+	else
+	{
+		output << "- ";
+		output << c.img*-1 << "i";
+	}
+	return output;
+}
+istream& operator >> (istream& input, Complex& c)
+{
+	char sign;
+	input >> c.real >> sign >> c.img;
+	cin.ignore(1);
+	if (sign == '-')
+		c.img *= -1;
+	return input;
+}
+int main()
+{
+	Complex number;
+	string command;
+	int n;
+	cin >> number;
+	cin>>n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> command;
+		if (command == "add")
+		{
+			Complex NewNumber;
+			cin >> NewNumber;
+			number = number + NewNumber;
+		}
+		if (command == "sub")
+		{
+			Complex NewNumber;
+			cin >> NewNumber;
+			number = number - NewNumber;
+		}
+		if (command == "int")
+		{
+			int realPart = (int)number;
+			cout << realPart << endl;
+		}
+		if (command == "print")
+		{
+			cout << number << endl;
+		}
+	}
+}
+

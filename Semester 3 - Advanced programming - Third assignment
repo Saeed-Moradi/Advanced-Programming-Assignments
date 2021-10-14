@@ -1,0 +1,146 @@
+https://quera.ir/course/assignments/5716/problems/20120
+
+#include <iostream>
+using namespace std;
+class pseudorandom
+{
+private:
+    static pseudorandom* instance;//private constructor
+    pseudorandom(){}
+    pseudorandom(const pseudorandom&)=delete;
+public://static access method
+    static pseudorandom& getInstance()
+    {
+        if(instance==NULL)
+            instance=new pseudorandom();
+        return *instance;
+    }
+    long int squareSeed(long int seed){
+    long long int squaredNum;
+    long int newNum;
+    newNum=seed;
+    int c,i;
+    for(i=0;i<10;i++){
+    int counter=0,squareCounter=0;
+    while(newNum>0)
+    {
+        newNum/=10;
+        counter++;
+    }
+    squaredNum=seed*seed;
+    long long int newSquaredNum=squaredNum;
+    while(newSquaredNum>0)
+    {
+        newSquaredNum/=10;
+        squareCounter++;
+    }
+    if(counter%2==1 && squareCounter%2==1)
+    {
+        int *p=new int[counter];
+        c=0;
+        while(c!=((squareCounter-counter)/2)+1){
+            squaredNum/=10;
+            c++;
+        }
+        for(i=0;i<counter;i++){
+        p[i]=squaredNum%10;
+        squaredNum/=10;
+    }
+    seed=0;
+    c=1;
+    for(i=0;i<counter;i++)
+    {
+        seed+=p[i]*c;
+        c*=10;
+    }
+    //cout<<num<<endl;
+    newNum=seed;
+    delete p;
+    return seed;
+}
+if(counter%2==0 && squareCounter%2==1)
+{
+            int *p=new int[counter];
+        c=0;
+        while(c!=(squareCounter-counter+1)/2){
+            squaredNum/=10;
+            c++;
+}
+        for(i=0;i<counter;i++){
+        p[i]=squaredNum%10;
+        squaredNum/=10;
+    }
+    seed=0;
+    c=1;
+    for(i=0;i<counter;i++)
+    {
+        seed+=p[i]*c;
+        c*=10;
+    }
+    //cout<<num<<endl;
+    newNum=seed;
+    delete p;
+    return seed;
+}
+    if(counter%2==0 && squareCounter%2==0)
+    {
+             int *p=new int[counter];
+        c=0;
+        while(c!=(squareCounter-counter)/2){
+            squaredNum/=10;
+            c++;
+}
+        for(i=0;i<counter;i++){
+        p[i]=squaredNum%10;
+        squaredNum/=10;
+    }
+    seed=0;
+    c=1;
+    for(i=0;i<counter;i++)
+    {
+        seed+=p[i]*c;
+        c*=10;
+    }
+    //cout<<num<<endl;
+    newNum=seed;
+    delete p;
+    return seed;
+    }
+    if(counter%2==1 && squareCounter%2==0)
+            {
+             int *p=new int[counter];
+        c=0;
+        while(c!=(squareCounter-counter+1)/2){
+            squaredNum/=10;
+            c++;
+}
+        for(i=0;i<counter;i++){
+        p[i]=squaredNum%10;
+        squaredNum/=10;
+    }
+    seed=0;
+    c=1;
+    for(i=0;i<counter;i++)
+    {
+        seed+=p[i]*c;
+        c*=10;
+    }
+    //cout<<num<<endl;
+    newNum=seed;
+    delete p;
+    return seed;
+    }
+    }
+}
+};
+pseudorandom* pseudorandom::instance=NULL;
+int main()
+{
+    long int seed;
+    cin>>seed;
+        pseudorandom::getInstance().squareSeed(seed);
+    for(int i=0;i<10;i++){
+        cout<<pseudorandom::getInstance().squareSeed(seed)<<endl;
+        seed=pseudorandom::getInstance().squareSeed(seed);
+    }
+}

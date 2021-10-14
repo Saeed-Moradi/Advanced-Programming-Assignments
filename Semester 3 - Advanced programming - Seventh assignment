@@ -1,0 +1,68 @@
+// Problem link: https://quera.ir/course/assignments/5968/problems/20131
+
+#include<iostream>
+#include<cstdio>
+#include<vector>
+#include<string>
+using namespace std;
+class shape
+{
+public:
+    virtual float getCircumference() = 0;
+    virtual float getArea() = 0;
+};
+class rectangle:public shape
+{
+    private:
+    float top_left_x,top_left_y,width,length;
+    public:
+    //rectangle():top_left_x(0.0),top_left_y(0.0),width(0.0),length(0.0){}
+    rectangle(float a,float b,float c,float d):top_left_x(a),top_left_y(b),width(c),length(d){}
+    float getCircumference()
+    {
+     return (2*width+2*length);
+    }
+    float getArea()
+    {
+        return (width*length);
+    }
+};
+class circle:public shape
+{
+private:
+    float center_x,center_y,radius;
+public:
+    //circle():center_x(0.0),center_y(0.0),radius(0.0){}
+    circle(float x,float y,float r):center_x(x),center_y(y),radius(r){}
+    float getCircumference()
+    {
+        return (6.28*radius);
+    }
+    float getArea()
+    {
+        return (3.14*radius*radius);
+    }
+};
+int main()
+{
+    string command;
+    float a,b,c,d,e,f,g;
+    while(cin>>command)
+        {
+        if(command=="rectangle")
+        {
+        cin>>a>>b>>c>>d;
+        rectangle rec(a,b,c,d);
+        cout<<int(rec.getCircumference())<<endl;
+        cout<<int(rec.getArea())<<endl;
+        }
+        if(command=="circle")
+        {
+        cin>>e>>f>>g;
+        circle cir(e,f,g);
+        cout<<int(cir.getCircumference())<<endl;
+        cout<<int(cir.getArea())<<endl;
+        }
+        }
+    return 0;
+}

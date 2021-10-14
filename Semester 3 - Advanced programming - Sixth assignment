@@ -1,0 +1,289 @@
+// Problem link: https://quera.ir/course/assignments/5968/problems/22736
+
+#include <iostream>
+
+using namespace std;
+template<class T>
+class Deque;
+template<class T>
+class node
+{
+private:
+    T data;
+    node* next;
+    node* previous;
+    friend class Deque<T>;
+};
+template<class T>
+class Deque
+{
+private:
+    node<T>* first;
+    node<T>* last;
+public:
+    Deque()
+    {
+        first = NULL;
+        last = NULL;
+    }
+    T pop_back()
+    {
+    /*node<T> *temp = first;
+    while(temp->next!=NULL)
+    {
+        temp = temp->next;
+    }
+    T value = temp->data;
+    delete temp->next;
+    temp->next->next = NULL;
+    return value;*/
+        if(first==last)
+        {
+            T value = first->data;
+            delete first;
+            first = NULL;
+            last = NULL;
+            return value;
+        }
+        node<T>* temp;
+        temp = first;
+        last = last->next;
+        while(temp->next->next!=NULL){
+            temp = temp->next;
+        }
+        T value = temp->next->data;
+        delete temp->next;
+        last = temp;
+        temp->next = NULL;
+        return value;
+        /*node<T>* temp = first;
+        T value = last->data;
+        while(temp->next!=last)
+        {
+            temp = temp->next;
+        }
+            delete last;
+            last = temp;
+            last->next = NULL;
+            return value;*/
+    }
+    T pop_front()
+    {
+        /*node<T>* temp;
+        temp = last;
+        //first = first->next;
+        while(temp->previous->previous!=first)
+            {
+                temp = temp->previous;
+            }
+        T value = temp->previous->data;
+        delete temp->previous;
+        first = temp->next;
+        last = NULL;
+        return value;*/
+        node<T>* temp = first->next;
+        T value = first->data;
+        delete first;
+        first = temp;
+        if (first == NULL)
+            last = NULL;
+        return value;
+    }
+    void push_back(T obj)
+    {
+        node<T>*temp=new node<T>;
+        temp->next = NULL;
+        if(first==NULL)
+        {
+            first = temp;
+            first->data = obj;
+            last = first;
+        }
+        else
+        {
+            last->next = temp;
+            last = temp;
+            last->data = obj;
+        }
+    }
+    void push_front(T obj)
+    {
+        node<T>* temp = new node<T>;
+        temp->next = NULL;
+        temp->data = obj;
+        if(first==NULL)
+        {
+            first = temp;
+            last = first;
+        }
+        else
+        {
+            /*node<T>* temp1;
+            temp1 = first;
+            last->next = temp;
+            last = temp;
+            while(temp1!=last){
+            temp1 = temp1->next;*/
+            temp->next = first;
+            first = temp;
+        }
+    }
+
+    T get(int index)
+    {
+        node<T>* temp;
+        temp = first;
+        T value;
+        for(int i = 0;i<index;i++)
+        {
+            temp = temp->next;
+        }
+        value = temp->data;
+        return value;
+    }
+    void set(int index,T obj)
+    {
+        int counter = 0;
+        node<T> *itrat = first;
+        while(itrat!=NULL)
+        {
+            counter++;
+            itrat = itrat->next;
+        }
+
+        //cerr << counter << endl;
+
+        //for(node<T>*itrat = first; itrat != NULL; counter++,itrat = itrat->next);
+
+        if(index==0)
+        {
+            push_front(obj);
+        }
+        else if (index == counter)
+        {
+            push_back(obj);
+        }
+        else
+        {
+
+            node<T>*temp = new node<T>;
+            temp->data = obj;
+            temp->next = NULL;
+            node<T>* temp1 = first;
+            for(int i = 0;i<index-1;i++)
+                temp1 = temp1->next;
+            temp->next = temp1->next;
+            temp1->next = temp;
+        }
+    }
+        /*last = temp;
+        node<T>* temp1 = first;
+
+        temp1 = first;
+        for(int i = 0;i<index;i++)
+        {
+            temp1 = temp1->next;
+        }
+        temp1->data = obj;
+        temp1 = temp1->next;
+        for(int i = index;i<counter;i++)
+        {
+            temp1 = temp1->next;
+        }
+    }*/
+};
+int main()
+ {
+    Deque<string>stringObject;
+    Deque<int>integerObject;
+    string command,subcommand;
+    string strElement;
+    int index;
+    int integerElement;
+    cin >> command;
+    while(command!="exit")
+    {
+        
+        if(command=="exit")
+            exit(1);
+        cin>>subcommand;
+        if(command=="push_front")
+        {
+        if(subcommand=="int")
+        {
+            cin>>integerElement;
+            integerObject.push_front(integerElement);
+        }
+        if(subcommand=="string")
+        {
+            cin>>strElement;
+            stringObject.push_front(strElement);
+        }
+        }
+        if(command=="push_back")
+        {
+        if(subcommand=="int")
+        {
+           cin>>integerElement;
+           integerObject.push_back(integerElement);
+        }
+        if(subcommand=="string")
+        {
+            cin>>strElement;
+            stringObject.push_back(strElement);
+        }
+        }
+        if(command=="pop_front")
+        {
+        if(subcommand=="int")
+        {
+           cout<<integerObject.pop_front()<<endl;
+        }
+        if(subcommand=="string")
+        {
+            cout<<stringObject.pop_front()<<endl;
+        }
+        }
+        if(command=="pop_back")
+        {
+        if(subcommand=="int")
+        {
+           cout<<integerObject.pop_back()<<endl;
+        }
+        if(subcommand=="string")
+        {
+            cout<<stringObject.pop_back()<<endl;
+        }
+        }
+        if(command=="get")
+        {
+        if(subcommand=="int")
+        {
+        cin>>index
+        ;
+        cout<<integerObject.get(index)<<endl;
+        }
+        if(subcommand=="string")
+        {
+            cin>>index;
+            cout<<stringObject.get(index)<<endl;
+        }
+        }
+        if(command=="set")
+        {
+        cin>>index;
+        if(subcommand=="int")
+        {
+            cin>>integerElement;
+            integerObject.set(index,integerElement);
+        }
+        if(subcommand=="string")
+        {
+            cin>>strElement;
+            stringObject.set(index,strElement);
+        }
+        }
+        cin>>command;
+    }
+    return 0;
+}

@@ -1,0 +1,93 @@
+//Problem link: https://quera.ir/course/assignments/5716/problems/20109
+
+#include<iostream>
+using namespace std;
+class person
+{
+protected:
+    string firstName;
+    string lastName;
+    int age;
+    int nationalID;
+public:
+    string getFirstName(){
+    return firstName;}
+    string getLastName(){
+    return lastName;}
+    int getAge(){
+    return age;}
+    int getNationalID(){
+    return nationalID;}
+    person():firstName(""),lastName(""),age(0),nationalID(0){}
+    person(string f,string l,int a,int n):firstName(f),lastName(l),age(a),nationalID(n){}
+};
+class employee:public person
+{
+public:
+    int salary;
+    int departmentId;
+    employee():person(),salary(0),departmentId(0){}
+    employee(string f,string l,int a,int n,int s,int d):person(f,l,a,n),salary(s),departmentId(d){}
+
+};
+class DataScientist:private employee
+{
+    public:
+    DataScientist():employee(){}
+    DataScientist(string f,string l,int a,int n,int s,int d):employee(f,l,a,n,s,d){}
+};
+class SoftwareEngineer:private employee
+{
+    public:
+    SoftwareEngineer():employee(){}
+    SoftwareEngineer(string f,string l,int a,int n,int s,int d):employee(f,l,a,n,s,d){}
+};
+class ProductManager:private employee
+{
+    public:
+    ProductManager():employee(){}
+    ProductManager(string f,string l,int a,int n,int s,int d):employee(f,l,a,n,s,d){}
+};
+int main()
+{
+    int n,age,nationalId,salary,departmentId,DSnum=0,SEnum=0,PMnum=0,sum_ds_salary=0,sum_se_salary=0,sum_pm_salary=0;
+    string role,firstName,lastName;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>role;
+        if(role=="data_scientist")
+        {
+            DSnum++;
+            cin>>firstName>>lastName>>age>>nationalId>>salary>>departmentId;
+          employee d(firstName,lastName,age,nationalId,salary,departmentId);
+          sum_ds_salary+=d.salary;
+        }
+                if(role=="software_engineer")
+        {
+            SEnum++;
+            cin>>firstName>>lastName>>age>>nationalId>>salary>>departmentId;
+          employee s(firstName,lastName,age,nationalId,salary,departmentId);
+          sum_se_salary+=s.salary;
+        }
+                if(role=="product_manager")
+        {
+            PMnum++;
+            cin>>firstName>>lastName>>age>>nationalId>>salary>>departmentId;
+          employee p(firstName,lastName,age,nationalId,salary,departmentId);
+          sum_pm_salary+=p.salary;
+        }
+    }
+    if(sum_se_salary==0)
+        cout<<0<<endl;
+    else
+    cout<<sum_se_salary/SEnum<<endl;
+    if(sum_ds_salary==0)
+        cout<<0<<endl;
+    else
+    cout<<sum_ds_salary/DSnum<<endl;
+    if(sum_pm_salary==0)
+        cout<<0<<endl;
+    else
+    cout<<sum_pm_salary/PMnum<<endl;
+}

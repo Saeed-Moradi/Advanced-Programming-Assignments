@@ -1,0 +1,66 @@
+https://quera.ir/course/assignments/5709/problems/19324
+
+#include<iostream>
+#include<math.h>
+using namespace std;
+class point{
+private:
+    float x,y,z;
+public:
+    point():x(0),y(0),z(0){};
+    point(float a,float b,float c):x(a),y(b),z(c){};
+    void setPosition(float a,float b,float c){
+    x=a;
+    y=b;
+    z=c;}
+    float getX(){
+    return x;}
+    float getY(){
+    return y;}
+    float getZ(){
+    return z;}
+    float distanceTo(float a,float b,float c){
+    return (pow(a,2)+pow(b,2)+pow(c,2));
+    }
+    void printPoint(){
+    cout<<x<<" "<<y<<" "<<z<<endl;}
+};
+int main()
+{
+    int n,i;
+    cin>>n;
+    point p;
+    float distance[n],x[n],y[n],z[n],minDistance;
+    for(i=0;i<n;i++){
+        cin>>x[i]>>y[i]>>z[i];
+        if(x[i]>10000 || y[i]>10000 || z[i]>10000){
+            exit(0);
+        }
+        /*if(x[i]*100-int(x[i]*100)!=0.0){
+            exit(0);}
+        if(y[i]*100-int(y[i]*100)!=0.0){
+            exit(0);}
+        if(z[i]*100-int(z[i]*100)!=0.0){
+            exit(0);}*/
+        p.setPosition(x[i],y[i],z[i]);
+        p.getX();
+        p.getY();
+        p.getZ();
+        distance[i]=p.distanceTo(x[i],y[i],z[i]);
+    }
+    minDistance=distance[0];
+    for(i=1;i<n;i++){
+        if(distance[i]<minDistance){
+            minDistance=distance[i];
+        }
+    }
+    for(i=0;i<n;i++){
+        if(distance[i]==minDistance){
+        p.setPosition(x[i],y[i],z[i]);
+        p.getX();
+        p.getY();
+        p.getZ();
+        p.printPoint();
+        }
+    }
+}

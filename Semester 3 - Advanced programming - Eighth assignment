@@ -1,0 +1,70 @@
+// Problwm link: https://quera.ir/course/assignments/5968/problems/22827
+
+#include<iostream>
+using namespace std;
+template<class T,int n>
+class static_array
+{
+private:
+    T Array[n];
+public:
+    static_array(){
+        T element;
+        for(int i = 0;i<n;i++)
+        {
+            cin>>element;
+            Array[i] = element;
+        }
+    }
+    T& operator [](T element)
+    {
+        return element;
+    }
+    void print(int i)
+    {
+        if(i<0 || i>=10)
+            exit(1);
+        cout<<Array[i]<<endl;
+    }
+    string contains(T s)
+    {
+        for(int i = 0;i<10;i++)
+            {
+                if(s==Array[i])
+                return "true";
+            }
+        return "false";
+    }
+    void Set(int i,T s)
+    {
+        if(i<0 || i>=10)
+            exit(1);
+        Array[i] = s;
+    }
+};
+int main()
+{
+    static_array<string,10>obj;
+    int index;
+    string command,s;
+    for(int i = 0 ;i<5;i++)
+        {
+         cin>>command;
+    if(command=="print")
+    {
+        cin>>index;
+        obj.print(index);
+    }
+    if(command=="contains")
+    {
+         cin>>s;
+         cout<<obj.contains(s)<<endl;
+    }
+    if(command=="set")
+    {
+    cin>>index;
+    cin>>s;
+    obj.Set(index,s);
+    }
+        }
+}

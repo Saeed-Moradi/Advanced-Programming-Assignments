@@ -1,0 +1,51 @@
+//Problem link: https://quera.ir/course/assignments/4455/problems/14898
+
+#include<iostream>
+#include<string>
+using namespace std;
+string key;
+class pre_shared_key {
+public:
+	pre_shared_key()
+	{}
+	string encode(string input) {
+		string output;
+		static int j=0;
+		for (int i = 0; i<input.length(); i++) 
+		{ 
+		output.push_back(((input[i]+key[j])-32)%95+32);
+		j++;
+		}
+		return output;
+	}
+	string decode(string output) {
+		string input;
+		static int j;
+		for (int i = 0; i < output.length(); i++)
+		{ 
+			input.push_back(((output[i] - key[j] - 32) +95)%95 + 32);
+			j++;
+		}
+		return input;
+	}
+};
+int main() {
+	string input,order;
+	pre_shared_key func;
+	cin >>  key;
+	while(true)
+	{
+		cin >> order;
+		if (order == "exit")
+		{
+			break;
+		}
+		getchar();
+		getline(cin, input);
+		if (order == "encode")
+			cout << func.encode(input) << endl;
+		if (order == "decode")
+			cout <<func.decode(input)<< endl;
+	}
+	
+}
